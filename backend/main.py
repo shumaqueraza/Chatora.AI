@@ -1,5 +1,6 @@
 import os
 import json
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -99,4 +100,5 @@ async def generate(req: GenerateRequest):
     return data
 
 
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="static")
+BASE_DIR = Path(__file__).resolve().parent.parent
+app.mount("/", StaticFiles(directory=BASE_DIR / "frontend", html=True), name="static")
