@@ -94,6 +94,7 @@ Rules:
 - Scale all ingredient quantities from {original_servings} to {servings} servings
 - Add scaling_notes for ingredients that don't scale linearly (spices, salt, leavening agents)
 - buy_list should only contain ingredients where have=false
-- Instructions should be clear, numbered, with descriptive titles
+- Instructions should be clear, detailed, numbered, with descriptive titles
 - Tips and variations: 3-5 each
+- Use simple language
 """
