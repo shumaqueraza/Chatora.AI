@@ -6,10 +6,12 @@ from fastapi.staticfiles import StaticFiles
 from openai import OpenAI
 from dotenv import load_dotenv
 
-from models import SuggestRequest, GenerateRequest
-from prompts import (
-    SUGGEST_SYSTEM, SUGGEST_PROMPT,
-    GENERATE_SYSTEM, GENERATE_PROMPT
+from backend.models import SuggestRequest, GenerateRequest
+from backend.prompts import (
+    SUGGEST_SYSTEM,
+    SUGGEST_PROMPT,
+    GENERATE_SYSTEM,
+    GENERATE_PROMPT,
 )
 
 load_dotenv()
@@ -50,7 +52,9 @@ def call_ai(system: str, user: str) -> dict:
 @app.post("/api/suggest")
 async def suggest(req: SuggestRequest):
     if not req.ingredients and not req.recipe_text:
-        raise HTTPException(status_code=400, detail="Provide ingredients or a recipe description.")
+        raise HTTPException(
+            status_code=400, detail="Provide ingredients or a recipe description."
+        )
 
     prompt = SUGGEST_PROMPT.format(
         ingredients=", ".join(req.ingredients) if req.ingredients else "none specified",
@@ -79,7 +83,9 @@ async def generate(req: GenerateRequest):
         servings=req.servings,
         original_servings=req.original_servings,
         dietary_flags=", ".join(req.dietary_flags) if req.dietary_flags else "none",
-        ingredients_have=", ".join(req.ingredients_have) if req.ingredients_have else "none",
+        ingredients_have=", ".join(req.ingredients_have)
+        if req.ingredients_have
+        else "none",
         all_ingredients=json.dumps(req.all_ingredients),
     )
 
