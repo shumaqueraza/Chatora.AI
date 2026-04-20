@@ -1,4 +1,4 @@
-const BASE = "http://localhost:8000";
+const BASE = window.location.origin;
 
 async function apiSuggest(payload) {
   const res = await fetch(`${BASE}/api/suggest`, {
