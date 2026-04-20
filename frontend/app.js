@@ -103,9 +103,27 @@ function bindInputForm() {
   const chipContainer = document.getElementById("chip-container");
   const form = document.getElementById("recipe-form");
 
+  chipInput.addEventListener("input", () => {
+    const val = chipInput.value;
+    if (val && /[,.\s]$/.test(val)) {
+      const txt = val.trim().replace(/[,.\s]+$/, "");
+      if (txt) {
+        addChip(txt, chipContainer);
+        chipInput.value = "";
+      }
+    }
+  });
+
   chipInput.addEventListener("keydown", (e) => {
     if ((e.key === "Enter" || e.key === ",") && chipInput.value.trim()) {
       e.preventDefault();
+      addChip(chipInput.value.trim(), chipContainer);
+      chipInput.value = "";
+    }
+  });
+
+  chipInput.addEventListener("blur", () => {
+    if (chipInput.value.trim()) {
       addChip(chipInput.value.trim(), chipContainer);
       chipInput.value = "";
     }
