@@ -105,7 +105,7 @@ function bindInputForm() {
 
   chipInput.addEventListener("input", () => {
     const val = chipInput.value;
-    if (val && /[,.\s]$/.test(val)) {
+    if (val && /[,.]$/.test(val)) {
       const txt = val.trim().replace(/[,.\s]+$/, "");
       if (txt) {
         addChip(txt, chipContainer);
